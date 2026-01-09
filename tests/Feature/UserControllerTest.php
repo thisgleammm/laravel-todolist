@@ -40,4 +40,12 @@ class UserControllerTest extends TestCase
         ])
             ->assertSeeText("Invalid user or password");
     }
+    public function testLogout()
+    {
+        $this->withSession([
+            'user' => 'gleam',
+        ])->post('/logout')
+            ->assertRedirect('/')
+            ->assertSessionMissing("user");
+    }
 }
