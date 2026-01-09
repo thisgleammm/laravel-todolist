@@ -5,6 +5,7 @@ namespace Tests\Feature;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
+use function PHPUnit\Framework\assertFalse;
 
 class UserServiceTest extends TestCase
 {
@@ -19,8 +20,18 @@ class UserServiceTest extends TestCase
         $this->userService = $this->app()->make(UserService::class);
     }
 
-    public function testSample()
+    public function testLoginSucess()
     {
-        self::assertTrue(true);
+        self::assertTrue($this->userService->login("gleam", "secret"));
+    }
+
+    public function testLoginUserNotFound()
+    {
+        assertFalse($this->userService->login("user", "password"));
+    }
+
+    public function testLoginPasswordIncorrect()
+    {
+        assertFalse($this->userService->login("gleam", "wrong"));
     }
 }
