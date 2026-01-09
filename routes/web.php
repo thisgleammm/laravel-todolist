@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\UserController;
+use App\Http\Middleware\OnlyGuestMiddleware;
+use App\Http\Middleware\OnlyMemberMiddleware;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -10,7 +12,7 @@ Route::get('/', function () {
 Route::view('/template', 'template');
 
 Route::controller(UserController::class)->group(function (){
-    Route::get('/login', 'login')->name('login');
-    Route::post('/login', 'doLogin')->name('doLogin');
-    Route::post('/logout', 'doLogout')->name('doLogout');
+    Route::get('/login', 'login')->middleware(OnlyGuestMiddleware::class);
+    Route::post('/login', 'doLogin')->middleware(OnlyGuestMiddleware::class);
+    Route::post('/logout', 'doLogout')->middleware(OnlyMemberMiddleware::class);
 });
