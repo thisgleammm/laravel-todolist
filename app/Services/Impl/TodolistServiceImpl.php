@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 namespace App\Services\Impl;
 
@@ -17,5 +17,10 @@ class TodolistServiceImpl implements TodolistService
             "id" => $id,
             "todo" => $todo,
         ]);
+    }
+
+    public function getTodo(): array
+    {
+        return Session::get("todolist", []);
     }
 }
