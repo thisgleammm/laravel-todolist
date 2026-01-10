@@ -79,10 +79,13 @@
                             <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{{ $todo['id'] }}</td>
                             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">{{ $todo['todo'] }}</td>
                             <td class="px-6 py-4 whitespace-nowrap text-right text-sm">
-                                <button type="submit"
-                                    class="bg-red-600 hover:bg-red-700 text-white font-medium py-2 px-4 rounded-lg transition duration-200">
-                                    Remove
-                                </button>
+                                <form action="/todolist/{{ $todo['id'] }}" method="post">
+                                    @csrf
+                                    <button type="submit"
+                                        class="bg-red-600 hover:bg-red-700 text-white font-medium py-2 px-4 rounded-lg transition duration-200">
+                                        Remove
+                                    </button>
+                                </form>
                             </td>
                         </tr>
                         @endforeach

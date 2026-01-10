@@ -11,7 +11,7 @@ Route::get('/', [HomeController::class, "home"]);
 
 Route::view('/template', 'template');
 
-Route::controller(UserController::class)->group(function (){
+Route::controller(UserController::class)->group(function () {
     Route::get('/login', 'login')->middleware(OnlyGuestMiddleware::class);
     Route::post('/login', 'doLogin')->middleware(OnlyGuestMiddleware::class);
     Route::post('/logout', 'doLogout')->middleware(OnlyMemberMiddleware::class);
@@ -20,5 +20,5 @@ Route::controller(UserController::class)->group(function (){
 Route::controller(TodolistController::class)->middleware([OnlyMemberMiddleware::class])->group(function () {
     Route::get('/todolist', 'todoList');
     Route::post('/todolist', 'addTodo');
-    Route::delete('/todolist/{todoId}/delete', 'removeTodo');
+    Route::post('/todolist/{todoId}', 'removeTodo');
 });

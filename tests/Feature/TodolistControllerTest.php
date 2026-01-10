@@ -24,10 +24,10 @@ class TodolistControllerTest extends TestCase
             ]
         ]);
         $this->get('/todolist')
-        ->assertSeeText("1")
-        ->assertSeeText("Learn Laravel")
-        ->assertSeeText("2")
-        ->assertSeeText("Learn Livewire");
+            ->assertSeeText("1")
+            ->assertSeeText("Learn Laravel")
+            ->assertSeeText("2")
+            ->assertSeeText("Learn Livewire");
     }
 
     public function testAddTodoFailed()
@@ -46,6 +46,23 @@ class TodolistControllerTest extends TestCase
         $this->post('/todolist', [
             "todo" => 'Learn Laravel'
         ])
+            ->assertRedirect('/todolist');
+    }
+    public function testRemoveTodo()
+    {
+        $this->withSession([
+            "user" => "gleam",
+            "todolist" => [
+                [
+                    "id" => 1,
+                    "todo" => "Learn Laravel",
+                ],
+                [
+                    "id" => 2,
+                    "todo" => "Learn Livewire",
+                ],
+            ]
+        ])->post('/todolist/1')
             ->assertRedirect('/todolist');
     }
 }
